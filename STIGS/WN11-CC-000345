@@ -1,0 +1,27 @@
+<#
+.SYNOPSIS
+  The Windows Remote Management (WinRM) service must not use Basic authentication.
+
+.NOTES
+    Author          : Alex Kaplan
+    LinkedIn        : https://www.linkedin.com/in/alex-kaplan-5811b590/
+    GitHub          : github.com/alexfkaplan
+    Date Created    : 9-19-2026
+    Last Modified   : 9-19-2026
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000345
+    Documentation   : https://stigaview.com/products/win11/v2r8/WN11-CC-000345/
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+#>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" /v AllowBasic /t REG_DWORD /d 0 /f
