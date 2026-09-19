@@ -1,0 +1,39 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the system audits Logon/Logoff - Account Lockout failures.
+
+.NOTES
+    Author          : Alex Kaplan
+    LinkedIn        : https://www.linkedin.com/in/alex-kaplan-5811b590/
+    GitHub          : github.com/alexfkaplan
+    Date Created    : 9-19-2026
+    Last Modified   : 9-19-2026
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AU-000054
+    Documentation   : https://www.stigaview.com/products/win11/v2r5/WN11-AU-000054/
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+#>
+
+$RegistryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+$Name         = "SCENoApplyLegacyAuditPolicy"
+$Value        = 1
+
+if (-not (Test-Path $RegistryPath)) {
+    New-Item -Path $RegistryPath -Force | Out-Null
+}
+
+
+New-ItemProperty -Path $RegistryPath -Name $Name -Value $Value -PropertyType DWord -Force | Out-Null
+
+auditpol.exe /set /subcategory:"Account Lockout" /failure:enable
